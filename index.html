@@ -9,11 +9,42 @@
       <li class='list-group-item' ng-repeat="product in store.products | orderBy:'-price'">
   
     <!--<div ng-repeat="product in store.products | orderBy:'-price'"> --> <!-- desc order -->
-      <h3> 
-        {{product.name}}
-        <em> {{product.price | currency}} </em>
-        <img ng-src="{{product.images[0].full}}"/>
-      </h3>
+        <h3>
+          {{product.name}}
+          <em> {{product.price | currency}} </em>
+        </h3>
+        <div class="gallery" ng-show="product.images.length">  <!-- show images if it has images -->
+          <div class="img-wrap">
+            <img ng-src="{{product.images[0]}}" />
+          </div>
+          <ul class="img-thumbnails clearfix">
+            <li class="small-image pull-left thumbnail" ng-repeat="image in product.images track by $index">
+              <img ng-src="{{image}}" height="20" width="20" />
+            </li>
+          </ul>
+        </div>
+
+        <section ng-init="tab = 1">
+          <ul class="nav nav-pills">
+            <li> <a href ng-click="tab = 1">Description</a> </li>
+            <li> <a href ng-click="tab = 2">Specifications</a> </li>
+            <li> <a href ng-click="tab = 3">Reviews</a> </li>
+          </ul>
+
+          <div class="panel" ng-show="tab === 1">
+            <h4>Description</h4>
+            <p>{{product.description}}</p>
+          </div>
+          <div class="panel" ng-show="tab === 2">
+            <h4>Specifications</h4>
+            <blockquote>None yet</blockquote>
+          </div>
+          <div class="panel" ng-show="tab === 3">
+            <h4>Reviews</h4>
+            <blockquote>None yet</blockquote>
+          </div>
+        </section>
+
       <p> {{product.description | limitTo:8}} </p>
       <!-- only show the button when canPurchase is true -->
       <button ng-show="product.canPurchase"> 
