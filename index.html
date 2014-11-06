@@ -4,18 +4,26 @@
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
   </head>
   <body ng-controller="StoreController as store">
-    <div ng-repeat="product in store.products">
-    <!-- <div ng-hide="store.product.soldOut" class="product row"> -->
-      <h1> {{product.name}} </h1>
-      <h2>
-        <em> ${{product.price}} </em>
-      </h2>
-      <p> {{product.description}} </p>
+  
+    <ul class='list-group'>
+      <li class='list-group-item' ng-repeat="product in store.products | orderBy:'-price'">
+  
+    <!--<div ng-repeat="product in store.products | orderBy:'-price'"> --> <!-- desc order -->
+      <h3> 
+        {{product.name}}
+        <em> {{product.price | currency}} </em>
+        <img ng-src="{{product.images[0].full}}"/>
+      </h3>
+      <p> {{product.description | limitTo:8}} </p>
       <!-- only show the button when canPurchase is true -->
       <button ng-show="product.canPurchase"> 
         Add to Cart
       </button>
     </div>
+    
+      </li>
+    </ul>
+    
     <script type="text/javascript" src="angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script> <!-- Add the first module -->
   </body>
