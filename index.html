@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">  <!-- ng-app is a directive that creates an angular app by running app.js -->
+  <head>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+  </head>
+  <body ng-controller="StoreController as store">
+    <div ng-repeat="product in store.products">
+    <!-- <div ng-hide="store.product.soldOut" class="product row"> -->
+      <h1> {{product.name}} </h1>
+      <h2>
+        <em> ${{product.price}} </em>
+      </h2>
+      <p> {{product.description}} </p>
+      <!-- only show the button when canPurchase is true -->
+      <button ng-show="product.canPurchase"> 
+        Add to Cart
+      </button>
+    </div>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script> <!-- Add the first module -->
+  </body>
+</html>
