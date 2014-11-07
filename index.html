@@ -55,7 +55,7 @@
             <blockquote ng-repeat="review in product.reviews">
               <b>Stars: {{review.stars}}</b>
               {{review.body}}
-              <cite>by: {{review.author}}</cite>
+              <cite>-{{review.author}} on {{review.createdOn | date}}</cite>
             </blockquote>
 
             <!-- Review Form -->
@@ -99,7 +99,6 @@
                        title="Email"
                        required />
               </fieldset>
-              <div> reviewForm is {{reviewForm.$valid}}</div>
               <fieldset class="form-group">
                 <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
               </fieldset>

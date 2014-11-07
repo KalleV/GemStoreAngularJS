@@ -11,6 +11,7 @@
   app.controller('ReviewController', function(){
     this.review = {};
     this.addReview = function(product){
+      this.review.createdOn = Date.now();
       product.reviews.push(this.review);  // form submit puts an object with review properties into the product's reviews
       this.review = {};                   // reset the form submission back to empty
     };
