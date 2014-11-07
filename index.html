@@ -8,16 +8,14 @@
     <h1>Flatlander Crafted Gems</h6>
     <h2>- an Angular store - </h4>
     <ul class='list-group'>
-      <li class='list-group-item' ng-repeat="product in store.products | orderBy:'-price'">
-  
-    <!--<div ng-repeat="product in store.products | orderBy:'-price'"> --> <!-- desc order -->
+      <li class='list-group-item' ng-repeat="product in store.products | orderBy:'-price'"> <!-- desc order -->
         <h3>
           {{product.name}}
           <em> {{product.price | currency}} </em>
         </h3>
-        <div class="gallery" ng-show="product.images.length">  <!-- show images if it has images -->
+        <div class="gallery" ng-controller="GalleryController as gallery" ng-show="gallery.hasImages(product.images)">  <!-- show images if it has images -->
           <div class="img-wrap">
-            <img ng-src="{{product.images[0]}}" />
+            <img ng-src="{{product.images[gallery.current]}}" />
           </div>
           <ul class="img-thumbnails clearfix">
             <li class="small-image pull-left thumbnail" ng-repeat="image in product.images track by $index">
@@ -26,31 +24,56 @@
           </ul>
         </div>
 
-        <section ng-init="tab = 1">
+        <section ng-controller="PanelController as panel">
           <ul class="nav nav-pills">
             <!-- assign a tab value -->
-            <li ng-class="{ active:tab === 1 }">
-              <a href ng-click="tab = 1">Description</a>
+            <li ng-class="{ active:panel.isSelected(1) }">
+              <a href ng-click="panel.selectTab(1)">Description</a>
             </li>
-            <li ng-class="{ active:tab == 2 }">
-              <a href ng-click="tab = 2">Specifications</a>
+            <li ng-class="{ active:panel.isSelected(2) }">
+              <a href ng-click="panel.selectTab(2)">Specifications</a>
             </li>
-            <li ng-class="{ active:tab === 3 }">
-              <a href ng-click="tab = 3">Reviews</a>
+            <li ng-class="{ active:panel.isSelected(3) }">
+              <a href ng-click="panel.selectTab(3)">Reviews</a>
             </li>
           </ul>
 
-          <div class="panel" ng-show="tab === 1">
+          <div class="panel" ng-show="panel.isSelected(1)">
             <h4>Description</h4>
             <p>{{product.description}}</p>
           </div>
-          <div class="panel" ng-show="tab === 2">
+          <div class="panel" ng-show="panel.isSelected(2)">
             <h4>Specifications</h4>
-            <blockquote>None yet</blockquote>
+            <blockquote>Shine: {{product.shine}}</blockquote>
           </div>
-          <div class="panel" ng-show="tab === 3">
+          <div class="panel" ng-show="panel.isSelected(3)">
             <h4>Reviews</h4>
-            <blockquote>None yet</blockquote>
+            <blockquote ng-repeat="review in product.reviews">
+              <b>Stars: {{review.stars}}</b>
+              {{review.body}}
+              <cite>by: {{review.author}}</cite>
+            </blockquote>
+
+            <!-- New review form -->
+            <form name="reviewForm">
+              <blockquote>
+                <b>Stars: {{review.stars}}</b>
+                {{review.body}}
+                <cite>by: {{review.author}}</cite>
+              </blockquote>
+              <select ng-model="review.stars">
+                <option value="1">1 star</option>
+                <option value="2">2 stars</option>
+                <option value="3">3 stars</option>
+                <option value="4">4 stars</option>
+                <option value="5">5 stars</option>
+              </select>
+              <textarea ng-model="review.body"></textarea>
+              <label>by:</label>
+              <input ng-model="review.author" type="email" class="email" />
+              <input type="submit" value="Submit" />
+            </form>
+
           </div>
         </section>
 
