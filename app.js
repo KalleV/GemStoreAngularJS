@@ -8,6 +8,14 @@
     this.products = gems;
   });
 
+  app.controller('ReviewController', function(){
+    this.review = {};
+    this.addReview = function(product){
+      product.reviews.push(this.review);  // form submit puts an object with review properties into the product's reviews
+      this.review = {};                   // reset the form submission back to empty
+    };
+  });
+
   app.controller('GalleryController', function(){
     this.current = 0;
     this.setCurrent = function(value){
