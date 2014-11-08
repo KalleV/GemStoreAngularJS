@@ -13,9 +13,7 @@
     </header>
     <ul class='list-group' >
       <li class='list-group-item' ng-repeat="product in store.products | orderBy:'-price'"> <!-- desc order -->
-        <h3>
-          {{product.name}}
-          <em class="pull-right"> {{product.price | currency}} </em>
+        <h3 ng-include="'product-title.html'">
         </h3>
         <div class="gallery" ng-controller="GalleryController as gallery" ng-show="gallery.hasImages(product.images)">  <!-- show images if it has images -->
           <div class="img-wrap">
