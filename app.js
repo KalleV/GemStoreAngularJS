@@ -38,6 +38,17 @@
     this.panels = null;
   });
 
+  // Create a 'template expanding directive'
+  // - the 2nd argument configures how the directive will work
+  // - It will allow "<product-title></product-title>" to be used in the html
+  // - camelCase case converts to dase separators
+  app.directive('productTitle', function(){
+    return {
+      restrict: 'E',  // E = HTML element
+      templateUrl: 'product-title.html'
+    };
+  });
+
   var gems = [
     {
       name: 'Dodecahedron',
