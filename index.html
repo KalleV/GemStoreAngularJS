@@ -16,99 +16,11 @@
         <h3>
           <product-title></product-title>
         </h3>
-        <div class="gallery" ng-controller="GalleryController as gallery" ng-show="gallery.hasImages(product.images)">  <!-- show images if it has images -->
-          <div class="img-wrap">
-            <img ng-src="{{product.images[gallery.current]}}" />
-          </div>
-          <ul class="img-thumbnails clearfix">
-            <li class="small-image pull-left thumbnail" ng-repeat="image in product.images track by $index">
-              <img ng-src="{{image}}" height="20" width="20" />
-            </li>
-          </ul>
-        </div>
-
-        <section ng-controller="PanelController as panel">
-          <ul class="nav nav-pills">
-            <!-- assign a tab value -->
-            <li ng-class="{ active:panel.isSelected(1) }">
-              <a href ng-click="panel.selectTab(1)">Description</a>
-            </li>
-            <li ng-class="{ active:panel.isSelected(2) }">
-              <a href ng-click="panel.selectTab(2)">Specifications</a>
-            </li>
-            <li ng-class="{ active:panel.isSelected(3) }">
-              <a href ng-click="panel.selectTab(3)">Reviews</a>
-            </li>
-          </ul>
-
-          <div class="panel" ng-show="panel.isSelected(1)">
-            <h4>Description</h4>
-            <p>{{product.description}}</p>
-          </div>
-          <div class="panel" ng-show="panel.isSelected(2)">
-            <h4>Specifications</h4>
-            <blockquote>Shine: {{product.shine}}</blockquote>
-          </div>
-          <div class="panel" ng-show="panel.isSelected(3)">
-            <h4>Reviews</h4>
-            <blockquote ng-repeat="review in product.reviews">
-              <b>Stars: {{review.stars}}</b>
-              {{review.body}}
-              <cite>-{{review.author}} on {{review.createdOn | date}}</cite>
-            </blockquote>
-
-            <!-- Review Form -->
-            <!--  - novalidate turns off default HTML validation
-                  - reviewForm.$valid && ... prevents addReview from being called when the form is not valid
-            -->
-            <form name="reviewForm"
-                  ng-controller="ReviewController as reviewCtrl"
-                  ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
-
-              <!-- Live Preview -->
-              <blockquote>
-                <b>Stars: {{reviewCtrl.review.stars}}</b>
-                {{reviewCtrl.review.body}}
-                <cite>by: {{reviewCtrl.review.author}}</cite>
-              </blockquote>
-
-              <!-- Review Form -->
-              <h4>Submit a Review</h4>
-              <fieldset class="form-group">
-                <select ng-model="reviewCtrl.review.stars"
-                        class="form-control"
-                        ng-options="stars for stars in [5,4,3,2,1]"
-                        title="Stars"
-                        required>
-                  <option value="">Rate the Product</option>
-                </select>
-              </fieldset>
-              <fieldset class="form-group">
-                <textarea ng-model="reviewCtrl.review.body"
-                          class="form-control"
-                          placeholder="Write a short review of the product..."
-                          title="Review"
-                          required></textarea>
-              </fieldset>
-              <fieldset class="form-group">
-                <input name="author"
-                       ng-model="reviewCtrl.review.author"
-                       type="email"
-                       class="email"
-                       title="Email"
-                       required />
-              </fieldset>
-              <fieldset class="form-group">
-                <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
-              </fieldset>
-            </form>
-
-          </div>
-        </section>
-      <!-- only show the button when canPurchase is true -->
-      <button ng-show="product.canPurchase"> 
-        Add to Cart
-      </button>
+        <product-gallery></product-gallery>
+        <product-panels></product-panels>
+        <button ng-show="product.canPurchase">
+          Add to Cart
+        </button>
       </li>
     </ul>
   </body>

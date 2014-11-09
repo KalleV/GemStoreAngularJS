@@ -1,0 +1,10 @@
+<div class="gallery" ng-show="gallery.hasImages(product.images)">  <!-- show images if it has images -->
+    <div class="img-wrap">
+        <img ng-src="{{product.images[gallery.current]}}" />
+    </div>
+    <ul class="img-thumbnails clearfix">
+        <li class="small-image pull-left thumbnail" ng-repeat="image in product.images track by $index">
+            <img ng-src="{{image}}" height="20" width="20" />
+        </li>
+    </ul>
+</div>
